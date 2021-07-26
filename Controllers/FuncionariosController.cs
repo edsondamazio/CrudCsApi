@@ -78,7 +78,7 @@ namespace CrudCsApi.Controllers
             _context.Funcionarios.Add(funcionario);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFuncionario", new { id = funcionario.Id }, funcionario);
+            return CreatedAtAction(nameof(GetFuncionario), new { id = funcionario.Id }, funcionario);
         }
 
         // DELETE: api/Funcionarios/5
