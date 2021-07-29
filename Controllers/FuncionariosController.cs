@@ -44,6 +44,13 @@ namespace CrudCsApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFuncionario(int id, Funcionario funcionario)
         {
+            /*var funcionarioLocal = _context.Funcionarios.FindAsync(id);
+
+            if (funcionarioLocal == null)
+            {
+                return NotFound();
+            }*/
+
             if (id != funcionario.Id)
             {
                 return BadRequest();
