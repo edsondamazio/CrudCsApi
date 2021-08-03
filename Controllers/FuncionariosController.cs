@@ -73,12 +73,12 @@ namespace CrudCsApi.Controllers
         // POST: api/Funcionarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Funcionario>> PostFuncionario(Funcionario funcionario)
+        public async Task<ActionResult<FuncionarioDTO>> CreateFuncionario(Funcionario funcionario)
         {
             _context.Funcionarios.Add(funcionario);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetFuncionario), new { id = funcionario.Id }, funcionario);
+            return CreatedAtAction(nameof(GetFuncionario), new { id = funcionario.Id }, FuncionarioToDto(funcionario));
         }
 
         // DELETE: api/Funcionarios/5
