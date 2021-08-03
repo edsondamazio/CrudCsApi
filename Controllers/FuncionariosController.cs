@@ -20,14 +20,14 @@ namespace CrudCsApi.Controllers
 
         // GET: api/Funcionarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios()
+        public async Task<ActionResult<IEnumerable<FuncionarioDTO>>> GetFuncionarios()
         {
-            return await _context.Funcionarios.ToListAsync();
+            return await _context.Funcionarios.Select(x => FuncionarioToDto(x)).ToListAsync();
         }
 
         // GET: api/Funcionarios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Funcionario>> GetFuncionario(int id)
+        public async Task<ActionResult<FuncionarioDTO>> GetFuncionario(int id)
         {
             var funcionario = await _context.Funcionarios.FindAsync(id);
 
@@ -36,7 +36,7 @@ namespace CrudCsApi.Controllers
                 return NotFound();
             }
 
-            return funcionario;
+            return FuncionarioToDto(funcionario);
         }
 
         // PUT: api/Funcionarios/5
@@ -44,13 +44,6 @@ namespace CrudCsApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFuncionario(int id, Funcionario funcionario)
         {
-            /*var funcionarioLocal = _context.Funcionarios.FindAsync(id);
-
-            if (funcionarioLocal == null)
-            {
-                return NotFound();
-            }*/
-
             if (id != funcionario.Id)
             {
                 return BadRequest();
@@ -104,9 +97,13 @@ namespace CrudCsApi.Controllers
             return NoContent();
         }
 
-        private bool FuncionarioExists(int id)
-        {
-            return _context.Funcionarios.Any(e => e.Id == id);
-        }
+        private bool FuncionarioExists(int id) => _context.Funcionarios.Any(e => e.Id == id);
+
+        private static FuncionarioDTO FuncionarioToDto(Funcionario funcionario) => new FuncionarioDTO
+            {
+                Id = funcionario.Id,
+                Nome = funcionario.Nome
+            };
+    
     }
 }
