@@ -7,7 +7,7 @@ using CrudCsApi.Models;
 
 namespace CrudCsApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Funcionarios")]
     [ApiController]
     public class FuncionariosController : ControllerBase
     {
