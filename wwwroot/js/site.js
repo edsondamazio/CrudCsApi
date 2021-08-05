@@ -8,7 +8,7 @@ function getFuncionarios() {
     .catch(error => console.error('Unable to get funcionários.', error));
 }
 
-function addItem() {
+function addFuncionario() {
   const addNameTextbox = document.getElementById('add-name');
 
   const item = {
@@ -26,17 +26,17 @@ function addItem() {
   })
     .then(response => response.json())
     .then(() => {
-      getItems();
+      getFuncionarios();
       addNameTextbox.value = '';
     })
     .catch(error => console.error('Unable to add item.', error));
 }
 
-function deleteItem(id) {
+function deleteFuncionario(id) {
   fetch(`${uri}/${id}`, {
     method: 'DELETE'
   })
-  .then(() => getItems())
+  .then(() => getFuncionarios())
   .catch(error => console.error('Unable to delete item.', error));
 }
 
@@ -49,7 +49,7 @@ function displayEditForm(id) {
   document.getElementById('editForm').style.display = 'block';
 }
 
-function updateItem() {
+function updateFuncionario() {
   const itemId = document.getElementById('edit-id').value;
   const item = {
     id: parseInt(itemId, 10),
@@ -65,7 +65,7 @@ function updateItem() {
     },
     body: JSON.stringify(item)
   })
-  .then(() => getItems())
+  .then(() => getFuncionarios())
   .catch(error => console.error('Unable to update item.', error));
 
   closeInput();
@@ -103,7 +103,7 @@ function _displayFuncionarios(data) {
 
     let deleteButton = button.cloneNode(false);
     deleteButton.innerText = 'Delete';
-    deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
+    deleteButton.setAttribute('onclick', `deleteFuncionario(${item.id})`);
 
     let tr = tBody.insertRow();
     
